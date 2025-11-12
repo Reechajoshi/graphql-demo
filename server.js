@@ -5,12 +5,21 @@ var {ruruHTML} = require("ruru/server")
 
 var schema = buildSchema(`
   type Query {
-    hello: String,
+    hello(name: String!): String
     age: Int
+    weight: Float!
+    isOver19: Boolean
+    hobbies: [String]
   }
 `)
 
-var rootValue = { hello: () => "Hello world!", age: () => 20 }
+var rootValue = {
+    hello: ({name}) => `Hello ${name || "World"}!`,
+    age: () => 20,
+    weight: 77.7,
+    isOver19: () => true,
+    hobbies: () => ["coding", "reading"]
+}
 
 /*var source = "{ hello, age }"
 
